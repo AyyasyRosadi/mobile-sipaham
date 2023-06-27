@@ -6,9 +6,15 @@ const InputField = (props) => {
         <View className="mb-3">
             <Text className="ml-[2px] mb-[2px]">{props.title}</Text>
             <TextInput
-                className="bg-slate-50 px-2 py-1  border-b border-b-slate-400 shadow-lg"
+                defaultValue={props.defaultValue}
+                placeholder={props.placeholder}
+                secureTextEntry={props.secure}
+                className={`${props.color} py-1 border-b border-b-slate-400 shadow-lg text-slate-800 rounded-md`}
                 onChangeText={props.set}
                 value={props.value}
+                editable={props.readOnly}
+                keyboardType={props.keyboard}
+
             />
         </View>
     )
