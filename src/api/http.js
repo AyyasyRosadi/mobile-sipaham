@@ -1,11 +1,13 @@
 import axios from "axios";
-import { navigationRef } from "../UI/Route";
+import { navigationRef } from "./util";
 import { CommonActions } from "@react-navigation/native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+// import AsyncStorage from "@react-native-async-storage/async-storage";
+// import { setAuth } from "../UI/Route";
+// import {navigate}
 
 const api = axios.create({
     // baseURL: "http://192.168.1.6:8689"
-    baseURL:"http://192.168.1.20:8689"
+    baseURL:"http://10.10.10.248:8689"
 })
 export default api
 
@@ -27,12 +29,15 @@ api.interceptors.response.use(
         return res
     },
     async(err) => {
-        if (err.response.status === 401 || err.response.status === 403) {
+        if ( err.response.status === 403) {
             console.log("Hey Kamu sudah keluar")
-            await AsyncStorage.removeItem("userToken")
             navigationRef.current?.dispatch(
-                CommonActions.navigate("Login")
+                CommonActions.navigate("User", {status:true})
             )
+            // await AsyncStorage.removeItem("userToken")
+            // navigationRef.current?.dispatch(
+            //     CommonActions.navigate("Login")
+            // )
         }
         return Promise.reject(err)
     }

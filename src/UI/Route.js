@@ -14,6 +14,8 @@ import Point from './Point'
 import Tahfidz from './Tahfidz'
 import TopUp from './TopUp'
 import User from './User'
+import { navigationRef } from '../api/util'
+
 
 export const checkToken = async () => {
     try {
@@ -31,7 +33,8 @@ export const checkToken = async () => {
         return err
     }
 }
-export const navigationRef = React.createRef()
+// export const navigationRef = React.createRef()
+
 
 function Route() {
     const Stack = createNativeStackNavigator()
