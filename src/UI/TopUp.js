@@ -22,7 +22,7 @@ import * as Clipboard from "expo-clipboard"
 
 
 
-const TopUp = () => {
+const TopUp = ({navigation}) => {
     const navigate = useNavigation()
     const route = useRoute()
     const dispatch = useDispatch()

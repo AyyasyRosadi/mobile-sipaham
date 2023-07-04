@@ -17,7 +17,7 @@ import titleHistory from "../assets/time.png"
 import * as Clipboard from "expo-clipboard"
 
 
-const Pembayaran = () => {
+const Pembayaran = ({navigation}) => {
     const navigate = useNavigation()
     const dispatch = useDispatch()
     const { profile } = useSelector(state => state.santri)

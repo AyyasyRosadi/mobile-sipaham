@@ -9,13 +9,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { currency } from '../../helper/Currency';
 import { useNavigation } from '@react-navigation/native';
 import { authAction } from '../../store/slice/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { logOut } from '../utils';
 
 function Header() {
     const navigate = useNavigation()
     const dispatch = useDispatch()
     const { profile } = useSelector(state => state.santri)
     const [dropMenu, setDropMenu] = useState(false)
-    // console.log(profile)
+    const clearStore = async()=>{
+        await AsyncStorage.removeItem("userToken")
+        dispatch(authAction.clearAuth())
+    }
     return (
         // <View className={`h-[23vh] pb-2 px-4 flex flex-col justify-between`}>
         <ImageBackground source={bg} resizeMode="cover" className={`h-[23vh] pb-2 px-4 flex flex-col justify-between`}>
@@ -37,8 +42,7 @@ function Header() {
                                         <Text className="my-auto">Ganti Akun</Text>
                                     </View>
                                     <View onTouchStart={() => {
-                                        dispatch(authAction.clearToken())
-                                        navigate.navigate("Login")
+                                        clearStore()
                                     }} className="bg-white px-1 py-2 rounded-b-lg flex flex-row space-x-2">
                                         <Image source={out} className="w-5 h-5" />
                                         <Text>Keluar</Text>

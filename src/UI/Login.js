@@ -32,8 +32,8 @@ const Login = ({ navigation }) => {
         }
     }, [no_hp])
     useEffect(() => {
-        setMsg((e)=>e+1)
-        if(msg > 0){
+        setMsg((e) => e + 1)
+        if (msg > 0) {
             setShowAlert(true)
         }
         // if (msgAuth !== "") {
@@ -42,28 +42,18 @@ const Login = ({ navigation }) => {
         // }
     }, [loadingAuth])
     useEffect(() => {
-        const check = () => {
-            if (userAuth?.token) {
-                const set = async () => {
-                    try {
-                        await AsyncStorage.setItem("user_token", JSON.stringify(userAuth))
-                    }
-                    catch (err) {
-                        console.log(err)
-                        return err
-                    }
+        const check = async () => {
+            try {
+                if (Object.keys(userAuth).length !== 0) {
+                    await AsyncStorage.setItem("userToken", JSON.stringify(userAuth))
                 }
-                set()
-                navigate.navigate("User")
             }
-
+            catch (err) {
+                return err
+            }
         }
         check()
-        const focusHandler = navigation.addListener("focus", () => {
-            check()
-        })
-        return focusHandler
-    }, [userAuth?.token, navigation])
+    }, [userAuth, loadingAuth])
     useEffect(() => {
         if (showAlert) {
             const interval = setInterval(() => {
