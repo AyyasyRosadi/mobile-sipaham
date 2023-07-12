@@ -6,8 +6,8 @@ import { CommonActions } from "@react-navigation/native";
 // import {navigate}
 
 const api = axios.create({
-    // baseURL: "http://192.168.1.6:8689"
-    baseURL:"http://10.10.10.248:8689"
+    baseURL: "http://192.168.1.8:8689"
+    // baseURL:"http://10.10.10.248:8689"
 })
 export default api
 
@@ -22,6 +22,11 @@ api.interceptors.request.use((req) => {
             Authorization: `Bearer ${store.getState().auth.userAuth.token}`
         }
     }
+    if(req.url.includes(`/user/refreshtoken`)){
+        req.headers = {
+            Authorization : `Bearer ${store.getState().auth.userAuth.refrestToken}`
+        }
+    }
     return req;
 })
 api.interceptors.response.use(
@@ -30,14 +35,9 @@ api.interceptors.response.use(
     },
     async(err) => {
         if ( err.response.status === 403) {
-            console.log("Hey Kamu sudah keluar")
             navigationRef.current?.dispatch(
                 CommonActions.navigate("User", {status:true})
             )
-            // await AsyncStorage.removeItem("userToken")
-            // navigationRef.current?.dispatch(
-            //     CommonActions.navigate("Login")
-            // )
         }
         return Promise.reject(err)
     }

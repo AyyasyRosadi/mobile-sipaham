@@ -27,8 +27,8 @@ const SetTopUp = (props) => {
                         <Text className="text-lg">Sisa Saldo : {profile.saldo !== null ? currency(profile.saldo.nominal) : "0"}</Text>
                         <Text className="text-lg">Anda Akan Melakukan Top Up Sejumlah Rp {props.val}</Text>
                     </View>
-                    <Pressable onTouchStart={props.aprove} className="bg-yellow-500 w-full rounded-lg">
-                        <Text className="mx-auto py-4">Lanjut</Text>
+                    <Pressable onTouchStart={props.aprove} className="bg-[#29368c] w-full rounded-lg">
+                        <Text className="mx-auto py-4 text-white">Lanjut</Text>
                     </Pressable>
 
                 </View>

@@ -12,6 +12,8 @@ import Alert from '../component/Alert'
 import AlertBottom from '../component/AlertBottom'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { authAction } from '../store/slice/auth'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { StatusBar } from 'expo-status-bar'
 
 const Login = ({ navigation }) => {
     const dispatch = useDispatch()
@@ -36,10 +38,6 @@ const Login = ({ navigation }) => {
         if (msg > 0) {
             setShowAlert(true)
         }
-        // if (msgAuth !== "") {
-        //     setShowAlert(true)
-        //     console.log("hi")
-        // }
     }, [loadingAuth])
     useEffect(() => {
         const check = async () => {
@@ -63,37 +61,41 @@ const Login = ({ navigation }) => {
         }
     }, [showAlert])
     return (
-        <View className=" bg-white h-[110vh]">
-            <AlertBottom show={showAlert} close={setShowAlert} msg={"No Hp Atau Password Salah"} />
-            <Loader show={loadingAuth} />
-            <View className="mx-auto flex flex-col justify-center h-[97vh] w-[80vw]">
-                <Image className="w-28 h-28 mx-auto" source={Logo} />
-                <Text className="text-center text-2xl my-2">Sipaham</Text>
-                <View className="relative">
-                    <Text className="absolute z-10 top-[29px] left-2">+62</Text>
-                    <InputField
-                        title="No Hp"
-                        value={no_hp}
-                        color="bg-slate-200 pl-8"
-                        set={setNo_hp}
-                        keyboard="number-pad"
-                    />
-                </View>
-                <View className="relative">
-                    <InputField
-                        secure={secure}
-                        title="Password"
-                        value={pwd}
-                        color="bg-slate-200 px-2"
-                        set={setPwd}
-                    />
-                    <View onTouchStart={() => setSecure(!secure)} className="absolute right-2 top-7">
-                        <Image className="w-5 h-5" source={secure ? Close : Open} />
+        <SafeAreaView>
+            <StatusBar style='light' backgroundColor='#ffff' />
+            <View className=" bg-white h-[110vh]">
+                <AlertBottom show={showAlert} close={setShowAlert} msg={"No Hp Atau Password Salah"} />
+                <Loader show={loadingAuth} />
+                <View className="mx-auto flex flex-col justify-center h-[97vh] w-[80vw]">
+                    <Image className="w-28 h-28 mx-auto" source={Logo} />
+                    <Text className="text-center text-2xl my-2">Sipaham</Text>
+                    <View className="relative">
+                        <Text className="absolute z-10 top-[29px] left-2">+62</Text>
+                        <InputField
+                            title="No Hp"
+                            value={no_hp}
+                            color="bg-slate-200 pl-8"
+                            set={setNo_hp}
+                            keyboard="number-pad"
+                        />
                     </View>
+                    <View className="relative">
+                        <InputField
+                            secure={secure}
+                            title="Password"
+                            value={pwd}
+                            color="bg-slate-200 px-2"
+                            set={setPwd}
+                        />
+                        <View onTouchStart={() => setSecure(!secure)} className="absolute right-2 top-7">
+                            <Image className="w-5 h-5" source={secure ? Close : Open} />
+                        </View>
+                    </View>
+                    <View onTouchStart={login} className="bg-[#dbad17] rounded-lg w-full my-2"><Text className="mx-auto py-3">Masuk</Text></View>
                 </View>
-                <View onTouchStart={login} className="bg-[#dbad17] rounded-lg w-full my-2"><Text className="mx-auto py-3">Masuk</Text></View>
             </View>
-        </View>
+        </SafeAreaView>
+
     )
 }
 

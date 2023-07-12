@@ -29,7 +29,6 @@ export const checkToken = async () => {
 
     }
     catch(err){
-        console.log(err)
         return err
     }
 }

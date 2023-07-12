@@ -19,10 +19,11 @@ import { currency } from '../helper/Currency'
 import moment from 'moment'
 import SetPayment from '../component/pembayaran/SetPayment'
 import * as Clipboard from "expo-clipboard"
+import { StatusBar } from 'expo-status-bar'
 
 
 
-const TopUp = ({navigation}) => {
+const TopUp = ({ navigation }) => {
     const navigate = useNavigation()
     const route = useRoute()
     const dispatch = useDispatch()
@@ -51,14 +52,6 @@ const TopUp = ({navigation}) => {
     useEffect(() => {
         setValueTopUp((e) => e.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, "."))
     }, [valueTopUp])
-    // useEffect(() => {
-    //     if (closeCopied) {
-    //         const interval = setInterval(() => {
-    //             // console.log("hii")
-    //         }, 1000)
-    //         return () => clearInterval(interval)
-    //     }
-    // }, [closeCopied])
     useEffect(() => {
         if (showCopied) {
             const interval = setInterval(() => {
@@ -69,6 +62,7 @@ const TopUp = ({navigation}) => {
     }, [showCopied])
     return (
         <SafeAreaView>
+            <StatusBar style='light' backgroundColor='#806400' />
             <View>
                 <Loader show={loadingPembayaran} />
                 <Alert show={showAlert} close={setShowAlert} msg={msgPembayaran} />
@@ -79,10 +73,10 @@ const TopUp = ({navigation}) => {
                 >
                     <View onTouchStart={() => Keyboard.dismiss()}>
                         <View className="flex flex-row justify-between">
-                            <View onTouchStart={() => navigate.navigate("Pembayaran")} className="bg-[#d2fab2] w-[50%] py-3 items-center">
+                            <View onTouchStart={() => navigate.navigate("Pembayaran")} className="bg-[#6b7ced] w-[50%] py-3 items-center">
                                 <Text>Pembayaran</Text>
                             </View>
-                            <View onTouchStart={() => navigate.navigate("TopUp")} className="bg-[#322d42] w-[50%] py-3 items-center">
+                            <View onTouchStart={() => navigate.navigate("TopUp")} className="bg-[#29368c] w-[50%] py-3 items-center">
                                 <Text className="text-gray-50">Top Up</Text>
                             </View>
                         </View>
@@ -97,9 +91,20 @@ const TopUp = ({navigation}) => {
                                     await Clipboard.setStringAsync(`9003094${profile.nuwb}`)
                                     setShowCopied(true)
                                 }}
+                                click={() => {
+                                    let change = ""
+                                    for (let i = 0; i < valueTopUp.length; i++) {
+                                        if (valueTopUp[i] !== ".") {
+                                            change += valueTopUp[i]
+                                        }
+                                    }
+                                    if (change !== "" && parseInt(change) >= 10000) {
+                                        setShowAprove(true)
+                                    }
+                                }}
                             />
                         </View>
-                        <View className="mx-auto w-full bg-slate-800 flex flex-row py-2 px-3 mt-1">
+                        <View className="mx-auto w-full bg-[#29368c] flex flex-row py-2 px-3 mb-1">
                             <Image source={titleHistory} className="w-9 h-9 my-auto" />
                             <Text className=" text-slate-50 mx-1 p-2 text-lg">Catatan Top Up</Text>
                         </View>
@@ -113,7 +118,9 @@ const TopUp = ({navigation}) => {
                                                 <Text className="">Aktif : {moment(d.active).tz("Asia/Makassar").format("DD-MM-YYYY ( hh:mm:ss )")}</Text>
                                                 <Text className="">Sampai : {moment(d.end).tz("Asia/Makassar").format("DD-MM-YYYY ( hh:mm:ss )")}</Text>
                                                 <Text>{`Status : ${d.status === 2 ? "Menunggu" : d.status === 1 ? "Berhasil" : "Tidak Aktif"}`}</Text>
-                                                <Text>{currency(d.nominal)}</Text>
+                                                <Text>Top up : {currency(d.nominal)}</Text>
+                                                <Text>Admin : {currency(2000)}</Text>
+                                                <Text>Total : {currency(d.nominal + 2000)}</Text>
                                             </View>
                                         </View>
                                     ))

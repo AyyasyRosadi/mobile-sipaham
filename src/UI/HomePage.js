@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation, useRoute } from '@react-navigation/native'
+import { StatusBar } from 'expo-status-bar'
 import React, { useEffect } from 'react'
 import { View } from 'react-native'
 import { Platform } from 'react-native'
@@ -18,9 +19,10 @@ function HomePage({navigation}) {
     const {userAuth} = useSelector(state=>state.auth)
     useEffect(()=>{
         dispatch(profileSantri(route.params?.nuwb))
-    },[route])
+    },[])
     return (
-        <SafeAreaView>
+        <SafeAreaView >
+            <StatusBar style='light' backgroundColor='#806400'/>
             <View className={Platform.OS === "android" ? "mt-0" : "mt-0"}>
                 <Header />
                 <Headline />

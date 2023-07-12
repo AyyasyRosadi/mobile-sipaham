@@ -21,41 +21,7 @@ import { authAction } from './src/store/slice/auth';
 import Route from './src/UI/Route';
 injectStore(store)
 
-// export const checkLogin = (val = false) =>{
-//   return val 
-// }
-
 export default function App() {
-  // const check = checkLogin()
-  // const [initialRoute, setInitialRoute] = useState("Login")
-  // const [token, setToken] = useState(false)
-  // const auth = async () => {
-  //   const res = await AsyncStorage.getItem("userToken")
-  //   if (res === null || Object.keys(JSON.parse(res)).length === 0) {
-  //     console.log(Object.keys(JSON.parse(res)).length)
-  //     setInitialRoute("Login")
-  //   }
-  //   else {
-  //     // console.log(Object.keys(JSON.parse(res).length))
-  //     setInitialRoute("User")
-  //   }
-  // }
-  // useEffect(() => {
-  //   auth()
-  // }, [])
-  // const storage = async () => {
-  //   const userToken = await AsyncStorage.getItem("userToken")
-  //   console.log(userToken)
-  //   if (Object.keys(JSON.parse(userToken)).length !== 0) {
-  //     setToken(true)
-  //   }
-  //   else {
-  //     setToken(false)
-  //   }
-  // }
-  // useEffect(() => {
-  //   storage()
-  // }, [])
   return (
     <Provider store={store}>
       <Route />

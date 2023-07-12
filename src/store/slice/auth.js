@@ -7,7 +7,7 @@ export const authStore = createSlice({
         userAuth : {},
         loadingAuth : false,
         msgAuth : "",
-        islogin : false
+        isRefresh : true
     },
     reducers : {
         clearAuth : (state)=>{
@@ -30,7 +30,6 @@ export const authStore = createSlice({
             state.loadingAuth = false
             state.msgAuth = action.payload
             state.userAuth = {}
-            state.islogin = true
         })
         .addCase(isRefreshToken.pending,(state)=>{
             state.loadingAuth = true
@@ -38,10 +37,12 @@ export const authStore = createSlice({
         .addCase(isRefreshToken.fulfilled,(state,action)=>{
             state.loadingAuth = false
             state.userAuth.token = action.payload.token
+            state.isRefresh = true
         })
         .addCase(isRefreshToken.rejected,(state,action)=>{
             state.loadingAuth = false
             state.msgAuth = action.payload
+            state.isRefresh = false
         })
     }
 })

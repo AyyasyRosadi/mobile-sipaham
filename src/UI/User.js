@@ -6,20 +6,19 @@ import { useNavigation, useRoute } from '@react-navigation/native'
 import Loader from '../component/Loader'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { authAction } from '../store/slice/auth'
+import { isRefreshToken } from '../store/actions/auth'
+import { StatusBar } from 'expo-status-bar'
 
-const User = () => {
+const User = ({navigation}) => {
     const navigate = useNavigation()
     const route = useRoute()
     const dispatch = useDispatch()
-    const { userAuth, loadingAuth } = useSelector(state => state.auth)
+    const { userAuth, loadingAuth,isRefresh } = useSelector(state => state.auth)
     const [santri, setSantri] = useState([])
     useEffect(() => {
-        console.log(route.params?.status)
         const getStore = async () => {
-            console.log(route.params?.status)
             if(route.params?.status){
-                await AsyncStorage.removeItem("userToken")
-                dispatch(authAction.clearAuth())
+                dispatch(isRefreshToken())
             }else{
             const item = await AsyncStorage.getItem("userToken")
             dispatch(authAction.setAuth(JSON.parse(item)))
@@ -30,10 +29,28 @@ const User = () => {
         }
         }
         getStore()
-    }, [route.params?.status])
+        const focusHandler = navigation.addListener("focus",async() => {
+            await getStore()
+        })
+        return focusHandler
+    }, [route.params?.status,navigation])
+    useEffect(()=>{
+        const change = async()=>{
+            await AsyncStorage.setItem("userToken",JSON.stringify(userAuth))
+        }
+        const remove = async()=>{
+            await AsyncStorage.removeItem("userToken")
+        }
+        if(Object.keys(userAuth).length !== 0 && isRefresh){
+            change()
+        }else if(!isRefresh){
+            remove()
+        }
+    },[userAuth])
     return (
         // <SafeAreaView>
         <View className="h-[120vh]">
+            <StatusBar style='light'/>
             <Loader show={loadingAuth} />
             <View className="bg-white w-screen h-[110vh] flex flex-col justify-center items-center space-y-3">
                 <Text className="text-lg">Pilih Santri</Text>
