@@ -109,7 +109,7 @@ const TopUp = ({ navigation }) => {
                             <Text className=" text-slate-50 mx-1 p-2 text-lg">Catatan Top Up</Text>
                         </View>
                         {Object.keys(historyTopup)?.length !== 0 ?
-                            <ScrollView className="mx-3">
+                            <ScrollView className="mx-3 h-[45%]">
                                 {
                                     historyTopup.log.map((d, id) => (
                                         <View key={id} className="my-1 py-3 border border-slate-500 flex flex-row rounded-xl">

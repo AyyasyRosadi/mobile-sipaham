@@ -91,7 +91,7 @@ const Pembayaran = ({ navigation }) => {
                         <Image source={titleHistory} className="w-9 h-9 my-auto" />
                         <Text className=" text-slate-50 mx-1 p-2 text-lg">Catatan Pembayaran</Text>
                     </View>
-                    <ScrollView className="mx-3 mb-20 mt-1">
+                    <ScrollView className="mx-3 mb-14 mt-1">
                         {[...history].sort((a, b) => {
                             return bul.indexOf(a.ket) - bul.indexOf(b.ket)
                         }).map((d, id) => (

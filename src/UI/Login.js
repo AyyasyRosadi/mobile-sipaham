@@ -68,9 +68,9 @@ const Login = ({ navigation }) => {
                 <Loader show={loadingAuth} />
                 <View className="mx-auto flex flex-col justify-center h-[97vh] w-[80vw]">
                     <Image className="w-28 h-28 mx-auto" source={Logo} />
-                    <Text className="text-center text-2xl my-2">Sipaham</Text>
+                    <Text className="text-center text-2xl my-2">SiPaham</Text>
                     <View className="relative">
-                        <Text className="absolute z-10 top-[29px] left-2">+62</Text>
+                        <Text className="absolute z-10 top-[33px] left-2">+62</Text>
                         <InputField
                             title="No Hp"
                             value={no_hp}

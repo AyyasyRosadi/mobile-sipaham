@@ -1,13 +1,13 @@
 {
   "expo": {
-    "name": "mobile-spp",
-    "slug": "mobile-spp",
+    "name": "sipaham",
+    "slug": "sipaham",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/logo.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/splash3.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -19,17 +19,17 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/logo.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.ayyasy_r.mobilespp"
+      "package": "com.ayyasy_r.sipaham"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "e896c083-3470-443e-b172-57095a5f7e7e"
+        "projectId": "aeaf573c-3187-4d5d-bf7b-eea2059403f9"
       }
     }
   }
