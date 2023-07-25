@@ -50,20 +50,20 @@ function Route() {
         <NavigationContainer ref={navigationRef}>
             {check ?
                 <Stack.Navigator initialRouteName='User' screenOptions={{ headerShown: false }}>
-                    <Stack.Screen name='User' component={User} options={{ contentStyle: { backgroundColor: "#c9a118" } }} />
-                    <Stack.Screen name="Home" component={HomePage} options={{ contentStyle: { backgroundColor: "#c9a118" } }} />
-                    <Stack.Screen name="Info" component={InfoSantri} options={{ contentStyle: { backgroundColor: "#c9a118" } }} />
-                    <Stack.Screen name='Pembayaran' component={Pembayaran} options={{ contentStyle: { backgroundColor: "#c9a118" } }} />
-                    <Stack.Screen name='TopUp' component={TopUp} options={{ contentStyle: { backgroundColor: "#c9a118" } }} />
-                    <Stack.Screen name="Perizinan" component={Perizininan} options={{ contentStyle: { backgroundColor: "#c9a118" } }} />
-                    <Stack.Screen name="Point" component={Point} options={{ contentStyle: { backgroundColor: "#c9a118" } }} />
-                    <Stack.Screen name="Akademik" component={Akademik} options={{ contentStyle: { backgroundColor: "#c9a118" } }} />
-                    <Stack.Screen name="Tahfidz" component={Tahfidz} options={{ contentStyle: { backgroundColor: "#c9a118" } }} />
-                    <Stack.Screen name="Informasi" component={Info} options={{ contentStyle: { backgroundColor: "#c9a118" } }} />
+                    <Stack.Screen name='User' component={User} options={{ contentStyle: { backgroundColor: "#ffffff" } }} />
+                    <Stack.Screen name="Home" component={HomePage} options={{ contentStyle: { backgroundColor: "#ffffff" } }} />
+                    <Stack.Screen name="Info" component={InfoSantri} options={{ contentStyle: { backgroundColor: "#ffffff" } }} />
+                    <Stack.Screen name='Pembayaran' component={Pembayaran} options={{ contentStyle: { backgroundColor: "#ffffff" } }} />
+                    <Stack.Screen name='TopUp' component={TopUp} options={{ contentStyle: { backgroundColor: "#ffffff" } }} />
+                    <Stack.Screen name="Perizinan" component={Perizininan} options={{ contentStyle: { backgroundColor: "#ffffff" } }} />
+                    <Stack.Screen name="Point" component={Point} options={{ contentStyle: { backgroundColor: "#ffffff" } }} />
+                    <Stack.Screen name="Akademik" component={Akademik} options={{ contentStyle: { backgroundColor: "#ffffff" } }} />
+                    <Stack.Screen name="Tahfidz" component={Tahfidz} options={{ contentStyle: { backgroundColor: "#ffffff" } }} />
+                    <Stack.Screen name="Informasi" component={Info} options={{ contentStyle: { backgroundColor: "#ffffff" } }} />
                 </Stack.Navigator>
                 :
                 <Stack.Navigator initialRouteName='Login' screenOptions={{ headerShown: false }}>
-                    <Stack.Screen name='Login' component={Login} options={{ contentStyle: { backgroundColor: "#c9a118" } }} />
+                    <Stack.Screen name='Login' component={Login} options={{ contentStyle: { backgroundColor: "#ffffff" } }} />
                 </Stack.Navigator>
             }
         </NavigationContainer>

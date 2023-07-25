@@ -23,8 +23,8 @@ function Header() {
     }
     return (
         // <View className={`h-[23vh] pb-2 px-4 flex flex-col justify-between`}>
-        <ImageBackground source={bg} resizeMode="cover" className={`h-[23vh] pb-2 px-4 flex flex-col justify-between`}>
-                <View className="h-[49%]">
+        <ImageBackground source={bg} resizeMode="cover" className={`h-[25vh] pb-2 px-4 flex flex-col justify-between bg-[#c9a118]`}>
+                <View className="mt-4">
                     <View className="flex flex-row justify-between my-auto">
                         <View className="ml-1">
                             <Image source={logo} className="w-16 h-16" />

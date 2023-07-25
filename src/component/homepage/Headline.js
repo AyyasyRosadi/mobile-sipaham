@@ -9,11 +9,11 @@ function Headline() {
         { img: 'https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510__340.jpg' }
     ]
     return (
-        <View className="bg-white">
+        <View className="bg-white h-[30vh]">
             <ImageSlider
                 data={img}
                 autoPlay={true}
-                caroselImageContainerStyle={{marginTop:-40,marginBottom:-30}}
+                caroselImageContainerStyle={{marginTop:-50,marginBottom:-20}}
             />
         </View>
     )

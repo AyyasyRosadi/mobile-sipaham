@@ -47,8 +47,7 @@ const Pembayaran = ({ navigation }) => {
     }, [showCopied])
     return (
         <SafeAreaView>
-            {/* <StatusBar style='light' backgroundColor='#806400' /> */}
-            <View>
+            <ScrollView>
                 <Alert show={showAlert} close={setShowAlert} msg={msgPembayaran} />
                 <Alert show={showCopied} close={setShowCopied} msg={"Copied"} />
                 <Base
@@ -91,7 +90,7 @@ const Pembayaran = ({ navigation }) => {
                         <Image source={titleHistory} className="w-9 h-9 my-auto" />
                         <Text className=" text-slate-50 mx-1 p-2 text-lg">Catatan Pembayaran</Text>
                     </View>
-                    <ScrollView className="mx-3 mb-14 mt-1">
+                    <ScrollView className="mx-3 mt-1 mb-[18vh]">
                         {[...history].sort((a, b) => {
                             return bul.indexOf(a.ket) - bul.indexOf(b.ket)
                         }).map((d, id) => (
@@ -108,7 +107,7 @@ const Pembayaran = ({ navigation }) => {
                     <SetPayment show={showAcceptment} close={setShowAcceptment} aprove={payment} />
                     <Loader show={loadingPembayaran} />
                 </Base>
-            </View>
+            </ScrollView>
         </SafeAreaView>
     )
 }
