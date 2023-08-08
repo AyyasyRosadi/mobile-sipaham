@@ -26,15 +26,21 @@ const Perizininan = () => {
             <View className="flex flex-row justify-between">
               <View
                 onTouchStart={() => navigate.navigate("Perizinan")}
-                className="bg-[#29368c] w-[50%] py-3 items-center"
+                className="bg-[#29368c] w-[33.2%] py-3 items-center"
               >
                 <Text className="text-white">Perizinan</Text>
               </View>
               <View
                 onTouchStart={() => navigate.navigate("Point")}
-                className="bg-[#6b7ced] w-[50%] py-3 items-center"
+                className="bg-[#6b7ced] w-[33.2%] py-3 items-center"
               >
                 <Text>Point Santri</Text>
+              </View>
+              <View
+                onTouchStart={() => navigate.navigate("Prestasi")}
+                className="bg-[#6b7ced] w-[33.2%] py-3 items-center"
+              >
+                <Text>Prestasi Santri</Text>
               </View>
             </View>
             <View className="mx-auto w-full bg-[#29368c] flex flex-row py-2 px-3 my-1">
@@ -54,7 +60,7 @@ const Perizininan = () => {
                       source={pointLogo}
                       className="w-10 h-10 my-auto mr-2 ml-[7px]"
                     />
-                    <View>
+                    <View className="w-[75vw]">
                       <Text>
                         Dari : {moment(d.dari).format("DD-MM-YYYY hh:mm")}
                       </Text>

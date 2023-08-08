@@ -30,9 +30,9 @@ function Header() {
                             <Image source={logo} className="w-16 h-16" />
                         </View>
                         <View className="flex flex-row my-auto">
-                            <View className="mr-2 gap-[2px]">
+                            <View className="mr-3 gap-[2px]">
                                 <Text className="text-[15px] text-gray-900 text-right">Ahlan Wasahlan</Text>
-                                <Text className="text-[13px] text-gray-900 font-semibold w-40 text-right">{profile?.nama}</Text>
+                                <Text className="text-[13px] text-gray-900 font-semibold w-40 text-right uppercase">{profile?.nama}</Text>
                             </View>
                             <View className="relative">
                                 <Image onTouchStart={() => setDropMenu(!dropMenu)} className="w-7 h-7 my-auto bg-slate-100 rounded-full" source={dots} />

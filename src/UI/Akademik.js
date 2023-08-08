@@ -1,8 +1,9 @@
-import { View, Text } from 'react-native'
+import { View, Text, Image } from 'react-native'
 import React from 'react'
 import Base from '../component/Base'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StatusBar } from 'expo-status-bar'
+import Maintain from '../component/Maintain'
 
 const Akademik = () => {
     return (
@@ -13,9 +14,7 @@ const Akademik = () => {
                     title="Akademik"
                     navigateTo="Home"
                 >
-                    <View className="flex justify-center flex-row items-center h-full">
-                        <Text className="text-2xl">Under Maintenance</Text>
-                    </View>
+                    <Maintain/>
                 </Base>
             </View>
         </SafeAreaView>

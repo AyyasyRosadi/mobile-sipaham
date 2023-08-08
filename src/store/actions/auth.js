@@ -29,3 +29,17 @@ export const isRefreshToken = createAsyncThunk(
         }
     }
 )
+export const isRefreshUser = createAsyncThunk(
+    'user/refresh',
+    async(_,{rejectWithValue})=>{
+        try{
+            const res = await ApiAuth.refreshUser()
+            if(res.status === 200){
+                return res.data
+            }
+        }
+        catch(err){
+            return rejectWithValue(err.response.data.msg)
+        }
+    }
+)

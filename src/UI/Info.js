@@ -3,6 +3,7 @@ import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Base from '../component/Base'
 import { StatusBar } from 'expo-status-bar'
+import Maintain from '../component/Maintain'
 
 const Info = () => {
     return (
@@ -13,9 +14,7 @@ const Info = () => {
                     title="Informasi"
                     navigateTo="Home"
                 >
-                    <View className="flex justify-center flex-row items-center h-full">
-                        <Text className="text-2xl">Under Maintenance</Text>
-                    </View>
+                    <Maintain/>
                 </Base>
             </View>
         </SafeAreaView>

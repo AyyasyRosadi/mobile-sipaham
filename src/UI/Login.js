@@ -74,7 +74,7 @@ const Login = ({ navigation }) => {
                         <InputField
                             title="No Hp"
                             value={no_hp}
-                            color="bg-slate-200 pl-8"
+                            color="bg-slate-200 pl-9"
                             set={setNo_hp}
                             keyboard="number-pad"
                         />

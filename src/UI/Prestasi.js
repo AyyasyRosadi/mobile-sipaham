@@ -1,34 +1,34 @@
 import { View, Text, ScrollView, Image } from "react-native";
 import React, { useEffect, useState } from "react";
-import Base from "../component/Base";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { useNavigation } from "@react-navigation/native";
-import { StatusBar } from "expo-status-bar";
 import { useDispatch, useSelector } from "react-redux";
-import { allPoint } from "../store/actions/point";
-import bgHistory from "../assets/coins.png";
+import { useNavigation } from "@react-navigation/native";
+import { getAllPrestasi } from "../store/actions/prestasi";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { StatusBar } from "expo-status-bar";
 import titleHistory from "../assets/time.png";
 import pointLogo from "../assets/info.png";
+import Base from "../component/Base";
 
-const Point = () => {
+
+const Prestasi = () => {
   const dispatch = useDispatch();
   const navigate = useNavigation();
   const { profile } = useSelector((state) => state.santri);
-  const { pointAll } = useSelector((state) => state.point);
+  const { prestasiAll } = useSelector((state) => state.prestasi);
   const [total, setTotal] = useState(0);
   useEffect(() => {
-    dispatch(allPoint(profile?.nuwb));
+    dispatch(getAllPrestasi(profile?.nuwb));
   }, [profile]);
   useEffect(() => {
     setTotal(0);
-    if (pointAll.length >= 1) {
+    if (prestasiAll.length >= 1) {
       let sem = 0;
-      pointAll.map((d) => {
-        sem += parseInt(d.list_point?.jumlahPoint);
+      prestasiAll.map((d) => {
+        sem += parseInt(d.prestasi?.jumlahPoint);
       });
       setTotal(sem);
     }
-  }, [pointAll]);
+  }, [prestasiAll]);
   return (
     <SafeAreaView>
       <StatusBar style="light" backgroundColor="#806400" />
@@ -47,31 +47,31 @@ const Point = () => {
                 </View>
                 <View
                   onTouchStart={() => navigate.navigate("Point")}
-                  className="bg-[#29368c] w-[33.2%] py-3 items-center"
+                  className="bg-[#6b7ced] w-[33.2%] py-3 items-center"
                 >
-                  <Text className="text-white">Point Santri</Text>
+                  <Text>Point Santri</Text>
                 </View>
                 <View
                   onTouchStart={() => navigate.navigate("Prestasi")}
-                  className="bg-[#6b7ced] w-[33.2%] py-3 items-center"
+                  className="bg-[#29368c] w-[33.2%] py-3 items-center"
                 >
-                  <Text>Prestasi Santri</Text>
+                  <Text className="text-white">Prestasi Santri</Text>
                 </View>
               </View>
               <View className="mx-auto w-full bg-[#29368c] flex flex-row py-2 px-3 my-1">
                 <Image source={titleHistory} className="w-9 h-9 my-auto" />
                 <Text className=" text-slate-50 mx-1 p-2 text-lg">
-                  Catatan Point
+                  Catatan Prestasi
                 </Text>
               </View>
               <View className="mx-2">
                 <Text className="text-lg font-semibold">
-                  Total Point : {total}
+                  Total Prestasi : {total}
                 </Text>
               </View>
-              {Object.keys(pointAll)?.length !== 0 ? (
+              {Object.keys(prestasiAll)?.length !== 0 ? (
                 <View className="mx-3 mt-1 mb-[18vh]">
-                  {pointAll.map((d, id) => (
+                  {prestasiAll.map((d, id) => (
                     <View
                       key={id}
                       className="my-1 py-3 border border-slate-500 flex flex-row rounded-xl"
@@ -82,10 +82,10 @@ const Point = () => {
                       />
                       <View className="w-[75vw]">
                         <Text className="font-semibold">
-                          {d.list_point?.judul}
+                          {d.prestasi?.judul}
                         </Text>
-                        <Text>{d.list_point?.deskripsi}</Text>
-                        <Text>{d.list_point?.jumlahPoint}</Text>
+                        <Text>{d.prestasi?.deskripsi}</Text>
+                        <Text>{d.prestasi?.jumlahPoint}</Text>
                       </View>
                     </View>
                   ))}
@@ -103,4 +103,4 @@ const Point = () => {
   );
 };
 
-export default Point;
+export default Prestasi;

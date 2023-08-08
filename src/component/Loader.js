@@ -7,7 +7,7 @@ const Loader = (props) => {
         setShow(props.show)
     }, [props.show])
     return (
-        <View className={`absolute bg-slate-800 top-0 opacity-30 h-[100vh] z-50 w-full flex justify-center items-center ${show ? "block" : "hidden"}`}>
+        <View className={`absolute bg-slate-100 top-0 opacity-30 h-[100vh] z-50 w-full flex justify-center items-center ${show ? "block" : "hidden"}`}>
             <ActivityIndicator size="large" color="#00ff00" />
         </View>
     )

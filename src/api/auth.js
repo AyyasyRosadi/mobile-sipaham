@@ -6,5 +6,9 @@ export const ApiAuth = {
     },
     refreshToken : () =>{
         return api.get("/user/refreshtoken")
+    },
+    refreshUser : () =>{
+        return api.get(`/santri/renew/data`)
     }
+
 }

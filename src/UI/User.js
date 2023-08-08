@@ -6,14 +6,16 @@ import { useNavigation, useRoute } from '@react-navigation/native'
 import Loader from '../component/Loader'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { authAction } from '../store/slice/auth'
-import { isRefreshToken } from '../store/actions/auth'
+import { isRefreshToken, isRefreshUser } from '../store/actions/auth'
 import { StatusBar } from 'expo-status-bar'
+import {useNetInfo} from "@react-native-community/netinfo"
+import { title } from '../helper/Title'
 
 const User = ({navigation}) => {
     const navigate = useNavigation()
     const route = useRoute()
     const dispatch = useDispatch()
-    const { userAuth, loadingAuth,isRefresh } = useSelector(state => state.auth)
+    const { userAuth, loadingAuth,isRefresh,checkToken } = useSelector(state => state.auth)
     const [santri, setSantri] = useState([])
     useEffect(() => {
         const getStore = async () => {
@@ -41,12 +43,18 @@ const User = ({navigation}) => {
         const remove = async()=>{
             await AsyncStorage.removeItem("userToken")
         }
-        if(Object.keys(userAuth).length !== 0 && isRefresh){
-            change()
-        }else if(!isRefresh){
-            remove()
+        if(userAuth !== null){
+            if(Object.keys(userAuth)?.length !== 0 && isRefresh){
+                change()
+            }else if(!isRefresh){
+                remove()
+            }    
         }
-    },[userAuth])
+        if(checkToken){
+            dispatch(isRefreshUser())
+            dispatch(authAction.clearCheck())
+        }
+    },[userAuth,checkToken])
     return (
         // <SafeAreaView>
         <View className="h-[120vh]">
@@ -57,7 +65,7 @@ const User = ({navigation}) => {
                 {santri !== null ? santri?.map((d, id) => (
                     <View onTouchStart={() => navigate.navigate("Home", { nuwb: d.nuwb })} key={id} className="bg-yellow-400 w-[70vw] p-3 rounded-md gap-1">
                         <Text>Nuwb : {d.nuwb}</Text>
-                        <Text>Nama : {d.nama}</Text>
+                        <Text>Nama : {title(d.nama)}</Text>
                     </View>
                 ))
                 :

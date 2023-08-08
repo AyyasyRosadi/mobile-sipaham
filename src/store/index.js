@@ -6,6 +6,7 @@ import pembayaranStore from "./slice/pembayaran";
 import santriStore from "./slice/santri";
 import pointStore from "./slice/point";
 import perizinanStore from "./slice/perizinan";
+import  prestasiStore from "./slice/prestasi";
 
 export const store = configureStore({
     reducer:{
@@ -13,7 +14,8 @@ export const store = configureStore({
         santri : santriStore,
         pembayaran : pembayaranStore,
         point : pointStore,
-        perizinan : perizinanStore
+        perizinan : perizinanStore,
+        prestasi : prestasiStore
     },
     middleware:[thunk]
 })

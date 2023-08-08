@@ -20,6 +20,7 @@ import moment from "moment";
 import SetPayment from "../component/pembayaran/SetPayment";
 import * as Clipboard from "expo-clipboard";
 import { StatusBar } from "expo-status-bar";
+import { pembayaranActions } from "../store/slice/pembayaran";
 
 const TopUp = ({ navigation }) => {
   const navigate = useNavigation();
@@ -31,7 +32,7 @@ const TopUp = ({ navigation }) => {
   const [showAlert, setShowAlert] = useState(false);
   const [showCopied, setShowCopied] = useState(false);
   const getHeight = Dimensions.get("window").height
-  const { historyTopup, msgPembayaran, loadingPembayaran } = useSelector(
+  const { historyTopup, msgPembayaran, loadingPembayaran,status } = useSelector(
     (state) => state.pembayaran
   );
   const { profile } = useSelector((state) => state.santri);
@@ -44,9 +45,14 @@ const TopUp = ({ navigation }) => {
     }
     dispatch(postTopup({ nuwb: profile.nuwb, nominal: parseInt(change) }));
     setShowAprove(false);
-    setShowAlert(true);
     setValueTopUp("");
   };
+  useEffect(()=>{
+    if(status){
+      setShowAlert(true);
+      dispatch(pembayaranActions.clearStatus())
+    }
+  },[status])
   useEffect(() => {
     dispatch(getHistoryTopUp(profile.nuwb));
   }, [showAlert]);
@@ -62,15 +68,21 @@ const TopUp = ({ navigation }) => {
       }, 500);
       return () => clearInterval(interval);
     }
-  }, [showCopied]);
+    if (showAlert) {
+      const interval = setInterval(() => {
+        setShowAlert(false);
+      }, 500);
+      return () => clearInterval(interval);
+    }
+  }, [showCopied,showAlert]);
   return (
     <SafeAreaView>
       <StatusBar style="light" backgroundColor="#806400" />
       <Loader show={loadingPembayaran} />
       <Alert show={showAlert} close={setShowAlert} msg={msgPembayaran} />
       <Alert show={showCopied} close={setShowCopied} msg={"Copied"} />
-      <Base title="Pembayaran" navigateTo="Home">
-        <ScrollView>
+      <Base title="Top Up" navigateTo="Home" scroll={!showAprove}>
+        <View>
           <View className="" onTouchStart={() => Keyboard.dismiss()}>
             <View className="flex flex-row justify-between">
               <View
@@ -117,7 +129,7 @@ const TopUp = ({ navigation }) => {
               </Text>
             </View>
             {Object.keys(historyTopup)?.length !== 0 ? (
-              <View className="mx-3 mt-1 mb-[18vh]">
+              <View className="mx-3 mt-1 mb-[40vh]">
                 {historyTopup.log.map((d, id) => (
                   <View
                     key={id}
@@ -160,14 +172,13 @@ const TopUp = ({ navigation }) => {
               </View>
             )}
           </View>
-        </ScrollView>
+        </View>
         <SetTopUp
           show={showAprove}
           close={setShowAprove}
           aprove={submit}
           val={valueTopUp}
         />
-        {/* <SetPayment show={showAprove} close={setShowAprove} aprove={submit} /> */}
       </Base>
     </SafeAreaView>
   );

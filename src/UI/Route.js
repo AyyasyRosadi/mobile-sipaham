@@ -15,6 +15,7 @@ import Tahfidz from './Tahfidz'
 import TopUp from './TopUp'
 import User from './User'
 import { navigationRef } from '../api/util'
+import Prestasi from './Prestasi'
 
 
 export const checkToken = async () => {
@@ -57,9 +58,11 @@ function Route() {
                     <Stack.Screen name='TopUp' component={TopUp} options={{ contentStyle: { backgroundColor: "#ffffff" } }} />
                     <Stack.Screen name="Perizinan" component={Perizininan} options={{ contentStyle: { backgroundColor: "#ffffff" } }} />
                     <Stack.Screen name="Point" component={Point} options={{ contentStyle: { backgroundColor: "#ffffff" } }} />
+                    <Stack.Screen name="Prestasi" component={Prestasi} options={{ contentStyle: { backgroundColor: "#ffffff" } }} />
                     <Stack.Screen name="Akademik" component={Akademik} options={{ contentStyle: { backgroundColor: "#ffffff" } }} />
                     <Stack.Screen name="Tahfidz" component={Tahfidz} options={{ contentStyle: { backgroundColor: "#ffffff" } }} />
                     <Stack.Screen name="Informasi" component={Info} options={{ contentStyle: { backgroundColor: "#ffffff" } }} />
+                    {/* <Stack.Screen name='Login' component={Login} options={{ contentStyle: { backgroundColor: "#ffffff" } }} /> */}
                 </Stack.Navigator>
                 :
                 <Stack.Navigator initialRouteName='Login' screenOptions={{ headerShown: false }}>
