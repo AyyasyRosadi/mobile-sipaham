@@ -11,7 +11,7 @@ function Headline() {
         <ImageSlider
           data={img}
           autoPlay={true}
-          timer={10000}
+          timer={5000}
           caroselImageContainerStyle={{ marginTop: -52, marginBottom: -20 }}
         />
       ) : (

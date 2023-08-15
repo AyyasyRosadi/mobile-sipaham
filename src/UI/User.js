@@ -54,7 +54,7 @@ const User = ({navigation}) => {
             dispatch(isRefreshUser())
             dispatch(authAction.clearCheck())
         }
-    },[userAuth,checkToken])
+    },[userAuth,checkToken,isRefresh])
     return (
         // <SafeAreaView>
         <View className="h-[120vh]">

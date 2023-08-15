@@ -18,11 +18,15 @@ const InfoSantri = () => {
         <View>
           <Info
             nuwb={profile?.nuwb}
-            nama={title(profile?.nama)}
-            kelas={String(profile?.kelas)}
-            ruang={"D"}
-            lembaga={profile.lembaga?.nama}
-            wali={title(profile?.wali?.nama)}
+            nama={profile?.nama !== null ? title(profile?.nama) : "-"}
+            kelas={profile?.kelas !== null ? String(profile?.kelas) : "-"}
+            ruang={profile?.ruang}
+            lembaga={
+              profile?.lembaga?.nama !== null ? profile.lembaga?.nama : "-"
+            }
+            wali={
+              profile?.wali?.nama !== null ? title(profile?.wali?.nama) : "-"
+            }
           />
         </View>
       </Base>
