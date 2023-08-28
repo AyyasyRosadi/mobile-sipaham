@@ -22,6 +22,7 @@ import * as Clipboard from "expo-clipboard";
 import { StatusBar } from "expo-status-bar";
 import { currency } from "../helper/Currency";
 import { pembayaranActions } from "../store/slice/pembayaran";
+import { title } from "../helper/Title";
 
 const Pembayaran = ({ navigation }) => {
   const navigate = useNavigation();
@@ -95,7 +96,7 @@ const Pembayaran = ({ navigation }) => {
             <View className="bg-gray-50 border border-slate-600 mx-3 my-3 rounded-xl shadow-xl p-2">
               <CardSpp
                 nuwb={profile.nuwb}
-                nama={profile.nama}
+                nama={profile.nama !== null ? title(profile?.nama): ""}
                 bulan={onePembayaran.loan.bulan}
                 total={
                   onePembayaran.loan.jumlah !== undefined

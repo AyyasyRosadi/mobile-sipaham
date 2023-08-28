@@ -25,12 +25,6 @@ const Perizininan = () => {
           <View>
             <View className="flex flex-row justify-between">
               <View
-                onTouchStart={() => navigate.navigate("Perizinan")}
-                className="bg-[#29368c] w-[33.2%] py-3 items-center"
-              >
-                <Text className="text-white">Perizinan</Text>
-              </View>
-              <View
                 onTouchStart={() => navigate.navigate("Point")}
                 className="bg-[#6b7ced] w-[33.2%] py-3 items-center"
               >
@@ -42,13 +36,19 @@ const Perizininan = () => {
               >
                 <Text>Prestasi Santri</Text>
               </View>
+              <View
+                onTouchStart={() => navigate.navigate("Perizinan")}
+                className="bg-[#29368c] w-[33.2%] py-3 items-center"
+              >
+                <Text className="text-white">Perizinan</Text>
+              </View>
             </View>
             <View className="mx-auto w-full bg-[#29368c] flex flex-row py-2 px-3 my-1">
-                <Image source={titleHistory} className="w-9 h-9 my-auto" />
-                <Text className=" text-slate-50 mx-1 p-2 text-lg">
-                  Catatan Perizinan
-                </Text>
-              </View>
+              <Image source={titleHistory} className="w-9 h-9 my-auto" />
+              <Text className=" text-slate-50 mx-1 p-2 text-lg">
+                Catatan Perizinan
+              </Text>
+            </View>
             {Object.keys(perizinanAll)?.length !== 0 ? (
               <View className="mx-3 mt-1 mb-[18vh]">
                 {perizinanAll.map((d, id) => (
@@ -69,7 +69,9 @@ const Perizininan = () => {
                       </Text>
                       <Text>Keterangan : {d.keterangan}</Text>
                       <Text>Penjemput : {d.penjemput}</Text>
-                      <Text>Status : {d.status ? "Sudah kembali" : "Belum kembali"}</Text>
+                      <Text>
+                        Status : {d.status ? "Sudah kembali" : "Belum kembali"}
+                      </Text>
                     </View>
                   </View>
                 ))}

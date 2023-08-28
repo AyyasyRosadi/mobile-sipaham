@@ -16,7 +16,7 @@ const CardSpp = (props) => {
                     <TextRow title="Nuwb" value={props.nuwb} />
                     <TextRow title="Nama" value={props.nama} />
                     <TextRow title="Bulan" value={props.bulan} uppercase />
-                    <TextRow title="Total" value={props.total} />
+                    <TextRow title="Total" value={props.total} />madagascar
                     <TextRow title="Saldo" value={props.saldo} />
                     {/* <TouchableOpacity onPress={props.press}>
                         <TextRow title="No Rek" value={props.no_rek} />

@@ -22,6 +22,7 @@ const getWitdh = parseInt(Dimensions.get("window").width / 4);
 function Fitur() {
   const { profile } = useSelector((state) => state.santri);
   const navigate = useNavigation();
+  console.log(profile)
   return (
     <ScrollView className="pt-2 pb-5 w-screen space-y-4 bg-white h-[40vh]">
       <View
@@ -69,12 +70,12 @@ function Fitur() {
         </View>
         <View>
           <View
-            onTouchStart={() => navigate.navigate("Perizinan")}
+            onTouchStart={() => navigate.navigate("Point")}
             className="w-[60px] h-[60px] bg-yellow-400 rounded-xl shadow-xl mx-auto py-2"
           >
             <Image source={asrama} className="w-10 h-10 mx-auto my-auto" />
           </View>
-          <Text className="text-end mx-auto">Asrama</Text>
+          <Text className="text-end mx-auto">{profile?.status_santri?.mondok ? "Asrama" : "Point"}</Text>
         </View>
         <View>
           <View

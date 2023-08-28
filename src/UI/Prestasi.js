@@ -38,24 +38,24 @@ const Prestasi = () => {
             <View>
               <View className="flex flex-row justify-between">
                 <View
-                  onTouchStart={() =>
-                    navigate.navigate("Perizinan")
-                  }
-                  className="bg-[#6b7ced] w-[33.2%] py-3 items-center"
-                >
-                  <Text>Perizinan</Text>
-                </View>
-                <View
                   onTouchStart={() => navigate.navigate("Point")}
-                  className="bg-[#6b7ced] w-[33.2%] py-3 items-center"
+                  className={`bg-[#6b7ced] py-3 items-center ${profile?.status_santri?.mondok ? "w-[33.2%]" : "w-[49.5%]" }`}
                 >
                   <Text>Point Santri</Text>
                 </View>
                 <View
                   onTouchStart={() => navigate.navigate("Prestasi")}
-                  className="bg-[#29368c] w-[33.2%] py-3 items-center"
+                  className={`bg-[#29368c] py-3 items-center ${profile?.status_santri?.mondok ? "w-[33.2%]" : "w-[49.5%]" }`}
                 >
                   <Text className="text-white">Prestasi Santri</Text>
+                </View>
+                <View
+                  onTouchStart={() =>
+                    navigate.navigate("Perizinan")
+                  }
+                  className={`bg-[#6b7ced] w-[33.2%] py-3 items-center ${profile?.status_santri?.mondok ? "block" : "hidden"}`}
+                >
+                  <Text>Perizinan</Text>
                 </View>
               </View>
               <View className="mx-auto w-full bg-[#29368c] flex flex-row py-2 px-3 my-1">
