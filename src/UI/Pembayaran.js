@@ -97,7 +97,7 @@ const Pembayaran = ({ navigation }) => {
               <CardSpp
                 nuwb={profile.nuwb}
                 nama={profile.nama !== null ? title(profile?.nama): ""}
-                bulan={onePembayaran.loan.bulan}
+                bulan={onePembayaran.loan?.bulan}
                 total={
                   onePembayaran.loan.jumlah !== undefined
                     ? currency(onePembayaran.loan.jumlah)

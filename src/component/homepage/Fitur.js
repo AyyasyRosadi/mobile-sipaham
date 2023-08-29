@@ -22,7 +22,6 @@ const getWitdh = parseInt(Dimensions.get("window").width / 4);
 function Fitur() {
   const { profile } = useSelector((state) => state.santri);
   const navigate = useNavigation();
-  console.log(profile)
   return (
     <ScrollView className="pt-2 pb-5 w-screen space-y-4 bg-white h-[40vh]">
       <View
