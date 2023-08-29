@@ -1,4 +1,4 @@
-import { View, Text, Image } from 'react-native'
+import { View, Text, Image, KeyboardAvoidingView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Logo from "../assets/ponpes.png"
 import InputField from '../component/InputField'
@@ -61,9 +61,11 @@ const Login = ({ navigation }) => {
         }
     }, [showAlert])
     return (
-        <SafeAreaView>
+        <KeyboardAvoidingView behavior='height' className="flex h-full">
+            <SafeAreaView/>
             <StatusBar style='light' backgroundColor='#ffff' />
-            <View className=" bg-white h-[110vh]">
+            {/* <View className=" bg-white h-[110vh]"> */}
+            <View className="flex h-full justify-around">
                 <AlertBottom show={showAlert} close={setShowAlert} msg={"No Hp Atau Password Salah"} />
                 <Loader show={loadingAuth} />
                 <View className="mx-auto flex flex-col justify-center h-[97vh] w-[80vw]">
@@ -94,9 +96,12 @@ const Login = ({ navigation }) => {
                     <View onTouchStart={login} className="bg-[#dbad17] rounded-lg w-full my-2"><Text className="mx-auto py-3">Masuk</Text></View>
                 </View>
             </View>
-        </SafeAreaView>
+           
+    
+        </KeyboardAvoidingView>
 
     )
 }
+
 
 export default Login
