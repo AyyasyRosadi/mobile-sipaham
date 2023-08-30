@@ -9,7 +9,7 @@ const InputField = (props) => {
                 defaultValue={props.defaultValue}
                 placeholder={props.placeholder}
                 secureTextEntry={props.secure}
-                className={`${props.color} py-1 bg-[#fff5dc] border-b border-b-slate-400 shadow-lg text-slate-800 rounded-md`}
+                className={`${props.color} py-2  border-b border-b-slate-400 shadow-lg text-slate-800 rounded-md`}
                 onChangeText={props.set}
                 value={props.value}
                 editable={props.readOnly}

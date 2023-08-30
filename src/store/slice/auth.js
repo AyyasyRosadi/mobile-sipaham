@@ -9,6 +9,7 @@ export const authStore = createSlice({
     msgAuth: "",
     isRefresh: true,
     checkToken: false,
+    status:"IDDLE"
   },
   reducers: {
     clearAuth: (state) => {
@@ -25,17 +26,20 @@ export const authStore = createSlice({
     builder
       .addCase(islogin.pending, (state) => {
         state.loadingAuth = true;
+        state.status="PENDING"
       })
       .addCase(islogin.fulfilled, (state, action) => {
         state.loadingAuth = false;
         state.userAuth = action.payload;
         state.isRefresh = true;
+        state.status="SUCCES"
       })
       .addCase(islogin.rejected, (state, action) => {
         state.loadingAuth = false;
         state.msgAuth = action.payload;
         state.userAuth = {};
         state.isRefresh = false;
+        state.status = "ERROR"
       })
       .addCase(isRefreshToken.pending, (state) => {
         state.loadingAuth = true;
