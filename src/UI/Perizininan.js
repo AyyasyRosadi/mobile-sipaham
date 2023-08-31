@@ -68,7 +68,7 @@ const Perizininan = () => {
                         Sampai : {moment(d.sampai).format("DD-MM-YYYY hh:mm")}
                       </Text>
                       <Text>Keterangan : {d.keterangan}</Text>
-                      <Text>Penjemput : {d.penjemput}</Text>
+                      <Text>Penjemput : {d.listPenjemput?.nama}</Text>
                       <Text>
                         Status : {d.status ? "Sudah kembali" : "Belum kembali"}
                       </Text>

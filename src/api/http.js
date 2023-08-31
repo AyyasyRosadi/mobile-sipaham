@@ -7,7 +7,7 @@ import { CommonActions } from "@react-navigation/native";
 
 const api = axios.create({
     // baseURL: "http://192.168.1.7:8689"
-    // baseURL: "http://192.168.1.33:8689"
+    // baseURL: "http://192.168.1.20:8689"
     baseURL: "https://sipahamv2-mobile.ponpesabuhurairah.id"
     // baseURL:"http://10.10.10.248:8689"
 })
