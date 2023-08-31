@@ -33,9 +33,8 @@ const Point = () => {
     <SafeAreaView>
       <StatusBar style="light" backgroundColor="#806400" />
       <View>
-        <Base title="Asrama" navigateTo="Home">
-          <ScrollView>
-            <View>
+        <Base title="Asrama" navigateTo="Home" scroll={true}>
+            <View className="mb-[20vh]">
               <View className="flex flex-row justify-between">
                 <View
                   onTouchStart={() => navigate.navigate("Point")}
@@ -96,7 +95,6 @@ const Point = () => {
                 </View>
               )}
             </View>
-          </ScrollView>
         </Base>
       </View>
     </SafeAreaView>

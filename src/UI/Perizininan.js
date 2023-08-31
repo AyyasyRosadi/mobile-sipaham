@@ -21,8 +21,8 @@ const Perizininan = () => {
   return (
     <SafeAreaView>
       <View>
-        <Base title="Asrama" navigateTo="Home">
-          <View>
+        <Base title="Asrama" navigateTo="Home" scroll={true}>
+          <View className="mb-[20vh]">
             <View className="flex flex-row justify-between">
               <View
                 onTouchStart={() => navigate.navigate("Point")}
