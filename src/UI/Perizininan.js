@@ -38,7 +38,7 @@ const Perizininan = () => {
               </View>
               <View
                 onTouchStart={() => navigate.navigate("Perizinan")}
-                className="bg-[#29368c] w-[33.2%] py-3 items-center"
+                className="bg-[#29368c] w-[33.3%] py-3 items-center"
               >
                 <Text className="text-white">Perizinan</Text>
               </View>

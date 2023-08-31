@@ -33,9 +33,6 @@ export const checkToken = async () => {
         return err
     }
 }
-// export const navigationRef = React.createRef()
-
-
 function Route() {
     const Stack = createNativeStackNavigator()
     const { userAuth, loadingAuth } = useSelector(state => state.auth)

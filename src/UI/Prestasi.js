@@ -39,13 +39,13 @@ const Prestasi = () => {
               <View className="flex flex-row justify-between">
                 <View
                   onTouchStart={() => navigate.navigate("Point")}
-                  className={`bg-[#6b7ced] py-3 items-center ${profile?.status_santri?.mondok ? "w-[33.2%]" : "w-[49.5%]" }`}
+                  className={`bg-[#6b7ced] py-3 items-center ${profile?.status_santri?.mondok ? "w-[33.2%]" : "w-[50%]" }`}
                 >
                   <Text>Point Santri</Text>
                 </View>
                 <View
                   onTouchStart={() => navigate.navigate("Prestasi")}
-                  className={`bg-[#29368c] py-3 items-center ${profile?.status_santri?.mondok ? "w-[33.2%]" : "w-[49.5%]" }`}
+                  className={`bg-[#29368c] py-3 items-center ${profile?.status_santri?.mondok ? "w-[33.3%]" : "w-[50%]" }`}
                 >
                   <Text className="text-white">Prestasi Santri</Text>
                 </View>
@@ -53,7 +53,7 @@ const Prestasi = () => {
                   onTouchStart={() =>
                     navigate.navigate("Perizinan")
                   }
-                  className={`bg-[#6b7ced] w-[33.2%] py-3 items-center ${profile?.status_santri?.mondok ? "block" : "hidden"}`}
+                  className={`bg-[#6b7ced] w-[33.3%] py-3 items-center ${profile?.status_santri?.mondok ? "block" : "hidden"}`}
                 >
                   <Text>Perizinan</Text>
                 </View>
