@@ -14,6 +14,7 @@ import akademik from "../../assets/akademik.png";
 import tahfidz from "../../assets/tahfidz.png";
 import asrama from "../../assets/asrama.png";
 import informasi from "../../assets/information.png";
+import Settings from "../../assets/settings.png"
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 
@@ -84,6 +85,15 @@ function Fitur() {
             <Image source={informasi} className="w-9 h-9 mx-auto my-auto" />
           </View>
           <Text className="text-end mx-auto">Informasi</Text>
+        </View>
+        <View>
+          <View
+            onTouchStart={() => navigate.navigate("Pengaturan")}
+            className="w-[60px] h-[60px] bg-yellow-400 rounded-xl shadow-xl mx-auto py-2"
+          >
+            <Image source={Settings} className="w-12 h-12 mx-auto my-auto" />
+          </View>
+          <Text className="text-end mx-auto">Pengaturan</Text>
         </View>
 
       </View>

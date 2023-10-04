@@ -9,6 +9,9 @@ export const ApiAuth = {
     },
     refreshUser : () =>{
         return api.get(`/santri/renew/data`)
+    },
+    putPassword : (data)=>{
+        return api.post(`/user/reset/password`,data)
     }
 
 }

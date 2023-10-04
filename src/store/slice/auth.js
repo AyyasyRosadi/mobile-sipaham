@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { islogin, isRefreshToken, isRefreshUser } from "../actions/auth";
+import { islogin, isRefreshToken, isRefreshUser, resetPassword } from "../actions/auth";
 
 export const authStore = createSlice({
   name: "auth",
@@ -9,7 +9,7 @@ export const authStore = createSlice({
     msgAuth: "",
     isRefresh: true,
     checkToken: false,
-    status:"IDDLE"
+    status:"IDDLE",
   },
   reducers: {
     clearAuth: (state) => {
@@ -21,6 +21,10 @@ export const authStore = createSlice({
     clearCheck: (state) => {
       state.checkToken = false;
     },
+    clearMsg : (state)=>{
+      state.msgAuth = ""
+      state.status = "IDDLE"
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -68,7 +72,22 @@ export const authStore = createSlice({
         state.loadingAuth = false;
         state.msgAuth = action.payload;
         state.userAuth = {};
+      })
+      .addCase(resetPassword.pending, (state) => {
+        state.loadingAuth = true;
+        state.status = "PENDING"
+      })
+      .addCase(resetPassword.fulfilled, (state, action) => {
+        state.loadingAuth = false;
+        state.status = "SUCCES"
+        state.msgAuth = action.payload.msg
+      })
+      .addCase(resetPassword.rejected, (state, action) => {
+        state.loadingAuth = false;
+        state.status = "ERROR"
+        state.msgAuth = action.payload;
       });
+
   },
 });
 export const authAction = authStore.actions;

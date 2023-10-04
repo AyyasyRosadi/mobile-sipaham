@@ -43,3 +43,18 @@ export const isRefreshUser = createAsyncThunk(
         }
     }
 )
+
+export const resetPassword =  createAsyncThunk(
+    'reset/password',
+    async(data,{rejectWithValue})=>{
+        try{
+            const res= await ApiAuth.putPassword(data)
+            if(res.status === 200){
+                return res.data
+            }
+        }
+        catch(err){
+            return rejectWithValue(err.response.data.msg)
+        }
+    }
+)

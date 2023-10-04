@@ -16,6 +16,7 @@ import TopUp from './TopUp'
 import User from './User'
 import { navigationRef } from '../api/util'
 import Prestasi from './Prestasi'
+import Pengaturan from './Pengaturan'
 
 
 export const checkToken = async () => {
@@ -59,6 +60,7 @@ function Route() {
                     <Stack.Screen name="Akademik" component={Akademik} options={{ contentStyle: { backgroundColor: "#ffffff" } }} />
                     <Stack.Screen name="Tahfidz" component={Tahfidz} options={{ contentStyle: { backgroundColor: "#ffffff" } }} />
                     <Stack.Screen name="Informasi" component={Info} options={{ contentStyle: { backgroundColor: "#ffffff" } }} />
+                    <Stack.Screen name="Pengaturan" component={Pengaturan} options={{ contentStyle: { backgroundColor: "#ffffff" } }} />
                     {/* <Stack.Screen name='Login' component={Login} options={{ contentStyle: { backgroundColor: "#ffffff" } }} /> */}
                 </Stack.Navigator>
                 :
