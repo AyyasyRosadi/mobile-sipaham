@@ -1,19 +1,19 @@
 import { View, Text, TextInput } from 'react-native'
 import React from 'react'
 
-const InputField = (props) => {
+const InputField = ({title,defaultValue,placeholder,secure,color,setValue,value,readOnly,keyboard}) => {
     return (
         <View className="mb-3">
-            <Text className="ml-[2px] mb-[6px]">{props.title}</Text>
+            <Text className="ml-[2px] mb-[6px]">{title}</Text>
             <TextInput
-                defaultValue={props.defaultValue}
-                placeholder={props.placeholder}
-                secureTextEntry={props.secure}
-                className={`${props.color} py-2  border-b border-b-slate-400 shadow-lg text-slate-800 rounded-md`}
-                onChangeText={props.set}
-                value={props.value}
-                editable={props.readOnly}
-                keyboardType={props.keyboard}
+                defaultValue={defaultValue}
+                placeholder={placeholder}
+                secureTextEntry={secure}
+                className={`${color} py-2  border-b border-b-slate-400 shadow-lg text-slate-800 rounded-md`}
+                onChangeText={setValue}
+                value={value}
+                editable={readOnly}
+                keyboardType={keyboard}
 
             />
         </View>

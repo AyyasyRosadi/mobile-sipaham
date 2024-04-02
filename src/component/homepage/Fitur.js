@@ -1,11 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   View,
   Text,
   Image,
-  Pressable,
-  Button,
-  Dimensions,
   ScrollView,
 } from "react-native";
 import santri from "../../assets/santri.png";
@@ -16,12 +13,9 @@ import asrama from "../../assets/asrama.png";
 import informasi from "../../assets/information.png";
 import Settings from "../../assets/settings.png"
 import { useNavigation } from "@react-navigation/native";
-import { useSelector } from "react-redux";
 
-const getWitdh = parseInt(Dimensions.get("window").width / 4);
 
-function Fitur() {
-  const { profile } = useSelector((state) => state.santri);
+function Fitur({profile}) {
   const navigate = useNavigation();
   return (
     <ScrollView className="pt-2 pb-5 w-screen space-y-4 bg-white h-[40vh]">
@@ -70,7 +64,7 @@ function Fitur() {
         </View>
         <View>
           <View
-            onTouchStart={() => navigate.navigate("Point")}
+            onTouchStart={() => navigate.navigate("Point",{ nuwb: profile.nuwb,mondok:profile?.status_santri?.mondok })}
             className="w-[60px] h-[60px] bg-yellow-400 rounded-xl shadow-xl mx-auto py-2"
           >
             <Image source={asrama} className="w-10 h-10 mx-auto my-auto" />
@@ -79,7 +73,7 @@ function Fitur() {
         </View>
         <View>
           <View
-            onTouchStart={() => navigate.navigate("Informasi")}
+            onTouchStart={() => navigate.navigate("Informasi",{ nuwb: profile.nuwb })}
             className="w-[60px] h-[60px] bg-yellow-400 rounded-xl shadow-xl mx-auto py-2"
           >
             <Image source={informasi} className="w-9 h-9 mx-auto my-auto" />
@@ -88,7 +82,7 @@ function Fitur() {
         </View>
         <View>
           <View
-            onTouchStart={() => navigate.navigate("Pengaturan")}
+            onTouchStart={() => navigate.navigate("Pengaturan",{ nuwb: profile.nuwb })}
             className="w-[60px] h-[60px] bg-yellow-400 rounded-xl shadow-xl mx-auto py-2"
           >
             <Image source={Settings} className="w-12 h-12 mx-auto my-auto" />

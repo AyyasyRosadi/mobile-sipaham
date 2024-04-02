@@ -1,92 +1,68 @@
-import { View, Text, Image, ScrollView, Keyboard, Dimensions } from "react-native";
-import React, { useEffect, useState } from "react";
+import { View, Text, Image, Keyboard } from "react-native";
+import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import Base from "../component/Base";
-import tz from "moment-timezone";
-import InputField from "../component/InputField";
-import TextRow from "../component/pembayaran/TextRow";
-// import { currency } from '../helper/Currency'
 import CardTopUp from "../component/pembayaran/CardTopUp";
 import titleHistory from "../assets/time.png";
 import SetTopUp from "../component/pembayaran/SetTopUp";
-import { useDispatch, useSelector } from "react-redux";
-import { getHistoryTopUp, postTopup } from "../store/actions/pembayaran";
 import Loader from "../component/Loader";
 import Alert from "../component/Alert";
 import bgHistory from "../assets/coins.png";
-import { currency } from "../helper/Currency";
-import moment from "moment";
-import SetPayment from "../component/pembayaran/SetPayment";
+import { currency } from "../helper/currency";
 import * as Clipboard from "expo-clipboard";
 import { StatusBar } from "expo-status-bar";
-import { pembayaranActions } from "../store/slice/pembayaran";
+import formatToAmount from "../helper/formatToAmount";
+import useCopied from "../hooks/useCopied";
+import useShowAlert from "../hooks/useShowAlert";
+import useGetHistoryTopUp from "../hooks/react-query/useGetHistoryTopUp";
+import formatToNumber from "../helper/formatToNumber";
+import { timeAsiaMakassar } from "../helper/time";
+import useGetProfile from "../hooks/react-query/useGetProfile";
+import useTopUp from "../hooks/react-query/useTopUp";
 
 const TopUp = ({ navigation }) => {
   const navigate = useNavigation();
   const route = useRoute();
-  const dispatch = useDispatch();
+
   const [valueTopUp, setValueTopUp] = useState("");
-  const [closeCopied, setCloseCopied] = useState(false);
-  const [showAprove, setShowAprove] = useState(false);
-  const [showAlert, setShowAlert] = useState(false);
+  const [showApprove, setShowApprove] = useState(false);
   const [showCopied, setShowCopied] = useState(false);
-  const getHeight = Dimensions.get("window").height
-  const { historyTopup, msgPembayaran, loadingPembayaran,status } = useSelector(
-    (state) => state.pembayaran
-  );
-  const { profile } = useSelector((state) => state.santri);
+
+  const profileSantri = useGetProfile(route?.params?.nuwb, false);
+  const profile = profileSantri?.data?.data?.santri;
+
+  const sendTopUp = useTopUp();
+  const showAlert = useShowAlert(sendTopUp?.status !== "idle" ? true : false);
   const submit = () => {
-    let change = "";
-    for (let i = 0; i < valueTopUp.length; i++) {
-      if (valueTopUp[i] !== ".") {
-        change += valueTopUp[i];
-      }
-    }
-    dispatch(postTopup({ nuwb: profile.nuwb, nominal: parseInt(change) }));
-    setShowAprove(false);
+    let amount = formatToNumber(valueTopUp);
+    sendTopUp.mutate({ nuwb: profile.nuwb, nominal: parseInt(amount) });
+    setShowApprove(false);
     setValueTopUp("");
   };
-  useEffect(()=>{
-    if(status){
-      setShowAlert(true);
-      dispatch(pembayaranActions.clearStatus())
-    }
-  },[status])
-  useEffect(() => {
-    dispatch(getHistoryTopUp(profile.nuwb));
-  }, [showAlert]);
-  useEffect(() => {
-    setValueTopUp((e) =>
-      e.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ".")
-    );
-  }, [valueTopUp]);
-  useEffect(() => {
-    if (showCopied) {
-      const interval = setInterval(() => {
-        setShowCopied(false);
-      }, 500);
-      return () => clearInterval(interval);
-    }
-    if (showAlert) {
-      const interval = setInterval(() => {
-        setShowAlert(false);
-      }, 500);
-      return () => clearInterval(interval);
-    }
-  }, [showCopied,showAlert]);
+
+  formatToAmount(valueTopUp, setValueTopUp);
+  useCopied(showCopied, setShowCopied);
+
+  const getHistoryTopUp = useGetHistoryTopUp(route?.params?.nuwb, showAlert);
+  const historyTopUp = getHistoryTopUp?.data?.data;
   return (
     <SafeAreaView>
       <StatusBar style="light" backgroundColor="#806400" />
-      <Loader show={loadingPembayaran} />
-      <Alert show={showAlert} close={setShowAlert} msg={msgPembayaran} />
-      <Alert show={showCopied} close={setShowCopied} msg={"Copied"} />
-      <Base title="Top Up" navigateTo="Home" scroll={!showAprove}>
+      <Loader show={getHistoryTopUp?.isLoading || profileSantri?.isLoading} />
+      <Alert
+        show={showAlert}
+        msg={sendTopUp?.status === "error" ? "Gagal" : "Top Up Berhasil"}
+      />
+      <Alert show={showCopied} msg={"Copied"} />
+      <Base title="Top Up" navigateTo="Home" scroll={!showApprove}>
         <View>
           <View className="" onTouchStart={() => Keyboard.dismiss()}>
             <View className="flex flex-row justify-between">
               <View
-                onTouchStart={() => navigate.navigate("Pembayaran")}
+                onTouchStart={() =>
+                  navigate.navigate("Pembayaran", { nuwb: profile?.nuwb })
+                }
                 className="bg-[#6b7ced] w-[50%] py-3 items-center"
               >
                 <Text>Pembayaran</Text>
@@ -100,24 +76,19 @@ const TopUp = ({ navigation }) => {
             </View>
             <View>
               <CardTopUp
-                saldo={historyTopup?.saldo}
+                saldo={historyTopUp?.saldo}
                 value={valueTopUp}
                 setTopUp={setValueTopUp}
-                set={setShowAprove}
+                set={setShowApprove}
                 no_rek={`9003094${profile.nuwb}`}
                 press={async () => {
                   await Clipboard.setStringAsync(`9003094${profile.nuwb}`);
                   setShowCopied(true);
                 }}
                 click={() => {
-                  let change = "";
-                  for (let i = 0; i < valueTopUp.length; i++) {
-                    if (valueTopUp[i] !== ".") {
-                      change += valueTopUp[i];
-                    }
-                  }
-                  if (change !== "" && parseInt(change) >= 10000) {
-                    setShowAprove(true);
+                  let amount = formatToNumber(valueTopUp);
+                  if (amount !== "" && parseInt(amount) >= 10000) {
+                    setShowApprove(true);
                   }
                 }}
               />
@@ -128,9 +99,9 @@ const TopUp = ({ navigation }) => {
                 Catatan Top Up
               </Text>
             </View>
-            {Object.keys(historyTopup)?.length !== 0 ? (
+            {historyTopUp && Object.keys(historyTopUp)?.length !== 0 ? (
               <View className="mx-3 mt-1 mb-[40vh]">
-                {historyTopup.log.map((d, id) => (
+                {historyTopUp.log.map((d, id) => (
                   <View
                     key={id}
                     className="my-1 py-3 border border-slate-500 flex flex-row rounded-xl"
@@ -141,16 +112,10 @@ const TopUp = ({ navigation }) => {
                     />
                     <View>
                       <Text className="">
-                        Aktif :{" "}
-                        {moment(d.active)
-                          .tz("Asia/Makassar")
-                          .format("DD-MM-YYYY ( hh:mm:ss )")}
+                        Aktif : {d.active && timeAsiaMakassar(d.active)}
                       </Text>
                       <Text className="">
-                        Sampai :{" "}
-                        {moment(d.end)
-                          .tz("Asia/Makassar")
-                          .format("DD-MM-YYYY ( hh:mm:ss )")}
+                        Sampai : {d.end && timeAsiaMakassar(d.end)}
                       </Text>
                       <Text>{`Status : ${
                         d.status === 2
@@ -174,10 +139,11 @@ const TopUp = ({ navigation }) => {
           </View>
         </View>
         <SetTopUp
-          show={showAprove}
-          close={setShowAprove}
-          aprove={submit}
-          val={valueTopUp}
+          show={showApprove}
+          close={setShowApprove}
+          approve={submit}
+          value={valueTopUp}
+          profile={profile}
         />
       </Base>
     </SafeAreaView>

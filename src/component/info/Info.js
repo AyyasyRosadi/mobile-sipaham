@@ -1,50 +1,48 @@
-import { View, Text, TextInput, ScrollView } from "react-native";
-import React, { useState } from "react";
+import { View, ScrollView } from "react-native";
+import React from "react";
 import InputField from "../InputField";
 
-const Info = (props) => {
+const Info = ({ nuwb, nama, kelas, ruang, lembaga, wali }) => {
   return (
     <ScrollView className="h-[95vh]">
-      {/* <View className="bg-blue-400 h-[50%]"> */}
       <View className="px-5 mt-5">
         <InputField
           title="Nuwb"
-          value={props.nuwb}
+          value={nuwb}
           readOnly={false}
           color="bg-slate-100 px-2"
         />
         <InputField
           title="Nama"
-          value={props.nama}
+          value={nama}
           readOnly={false}
           color="bg-slate-100 px-2"
         />
         <InputField
           title="Kelas"
-          value={props.kelas}
+          value={kelas}
           readOnly={false}
           color="bg-slate-100 px-2"
         />
         <InputField
           title="Ruang"
-          value={props.ruang}
+          value={ruang}
           readOnly={false}
           color="bg-slate-100 px-2"
         />
         <InputField
           title="Lembaga"
-          value={props.lembaga}
+          value={lembaga}
           readOnly={false}
           color="bg-slate-100 px-2"
         />
         <InputField
           title="Wali"
-          value={props.wali}
+          value={wali}
           readOnly={false}
           color="bg-slate-100 px-2"
         />
       </View>
-      {/* </View> */}
     </ScrollView>
   );
 };

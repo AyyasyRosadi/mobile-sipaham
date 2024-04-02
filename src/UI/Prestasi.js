@@ -1,33 +1,35 @@
-import { View, Text, ScrollView, Image } from "react-native";
+import { View, Text, Image } from "react-native";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigation } from "@react-navigation/native";
-import { getAllPrestasi } from "../store/actions/prestasi";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import titleHistory from "../assets/time.png";
 import pointLogo from "../assets/info.png";
 import Base from "../component/Base";
+import useGetPrestasi from "../hooks/react-query/useGetPrestasi";
+
+function useCountPrestasi(setTotalPrestasi, value) {
+  useEffect(() => {
+    setTotalPrestasi(0);
+    if (value && value.length >= 1) {
+      let result = 0;
+      value.map((d) => {
+        result += parseInt(d.prestasi?.jumlahPoint);
+      });
+      setTotalPrestasi(result);
+    }
+  }, [value]);
+}
 
 const Prestasi = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigation();
-  const { profile } = useSelector((state) => state.santri);
-  const { prestasiAll } = useSelector((state) => state.prestasi);
-  const [total, setTotal] = useState(0);
-  useEffect(() => {
-    dispatch(getAllPrestasi(profile?.nuwb));
-  }, [profile]);
-  useEffect(() => {
-    setTotal(0);
-    if (prestasiAll.length >= 1) {
-      let sem = 0;
-      prestasiAll.map((d) => {
-        sem += parseInt(d.prestasi?.jumlahPoint);
-      });
-      setTotal(sem);
-    }
-  }, [prestasiAll]);
+  const route = useRoute();
+  
+  const prestasiSantri = useGetPrestasi(route?.params?.nuwb, false);
+  const historyPrestasi = prestasiSantri?.data?.data;
+
+  const [totalPrestasi, setTotalPrestasi] = useState(0);
+  useCountPrestasi(setTotalPrestasi, historyPrestasi);
   return (
     <SafeAreaView>
       <StatusBar style="light" backgroundColor="#806400" />
@@ -36,25 +38,31 @@ const Prestasi = () => {
           <View className="mb-[20vh]">
             <View className="flex flex-row justify-between">
               <View
-                onTouchStart={() => navigate.navigate("Point")}
+                onTouchStart={() =>
+                  navigate.navigate("Point", { nuwb: route?.params?.nuwb,mondok:route?.params?.mondok })
+                }
                 className={`bg-[#6b7ced] py-3 items-center ${
-                  profile?.status_santri?.mondok ? "w-[33.2%]" : "w-[50%]"
+                  route?.params?.mondok ? "w-[33.2%]" : "w-[50%]"
                 }`}
               >
                 <Text>Point Santri</Text>
               </View>
               <View
-                onTouchStart={() => navigate.navigate("Prestasi")}
+                onTouchStart={() =>
+                  navigate.navigate("Prestasi", { nuwb: route?.params?.nuwb,mondok:route?.params?.mondok })
+                }
                 className={`bg-[#29368c] py-3 items-center ${
-                  profile?.status_santri?.mondok ? "w-[33.3%]" : "w-[50%]"
+                  route?.params?.mondok ? "w-[33.3%]" : "w-[50%]"
                 }`}
               >
                 <Text className="text-white">Prestasi Santri</Text>
               </View>
               <View
-                onTouchStart={() => navigate.navigate("Perizinan")}
+                onTouchStart={() =>
+                  navigate.navigate("Perizinan", { nuwb: route?.params?.nuwb,mondok:route?.params?.mondok })
+                }
                 className={`bg-[#6b7ced] w-[33.3%] py-3 items-center ${
-                  profile?.status_santri?.mondok ? "block" : "hidden"
+                  route?.params?.mondok ? "block" : "hidden"
                 }`}
               >
                 <Text>Perizinan</Text>
@@ -68,12 +76,12 @@ const Prestasi = () => {
             </View>
             <View className="mx-2">
               <Text className="text-lg font-semibold">
-                Total Prestasi : {total}
+                Total Prestasi : {totalPrestasi}
               </Text>
             </View>
-            {Object.keys(prestasiAll)?.length !== 0 ? (
+            {historyPrestasi && Object.keys(historyPrestasi)?.length !== 0 ? (
               <View className="mx-3 mt-1 mb-[18vh]">
-                {prestasiAll.map((d, id) => (
+                {historyPrestasi.map((d, id) => (
                   <View
                     key={id}
                     className="my-1 py-3 border border-slate-500 flex flex-row rounded-xl"

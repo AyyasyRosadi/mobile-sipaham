@@ -1,23 +1,19 @@
 import { View, Text, Image } from "react-native";
-import React, { useEffect } from "react";
+import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Base from "../component/Base";
-import { useNavigation } from "@react-navigation/native";
-import { StatusBar } from "expo-status-bar";
-import { useDispatch, useSelector } from "react-redux";
-import { allPerizinan } from "../store/actions/perizinan";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import titleHistory from "../assets/time.png";
 import pointLogo from "../assets/info.png";
-import moment from "moment";
+import useGetPerizinan from "../hooks/react-query/useGetPerizinan";
+import { timeAsiaMakassar } from "../helper/time";
 
-const Perizininan = () => {
-  const dispatch = useDispatch();
+const Perizinan = () => {
   const navigate = useNavigation();
-  const { profile } = useSelector((state) => state.santri);
-  const { perizinanAll } = useSelector((state) => state.perizinan);
-  useEffect(() => {
-    dispatch(allPerizinan(profile.nuwb));
-  }, []);
+  const route = useRoute();
+
+  const getPerizinan = useGetPerizinan(route?.params?.nuwb);
+  const historyPerizinan = getPerizinan?.data?.data;
   return (
     <SafeAreaView>
       <View>
@@ -25,19 +21,34 @@ const Perizininan = () => {
           <View className="mb-[20vh]">
             <View className="flex flex-row justify-between">
               <View
-                onTouchStart={() => navigate.navigate("Point")}
+                onTouchStart={() =>
+                  navigate.navigate("Point", {
+                    nuwb: route?.params?.nuwb,
+                    mondok: route?.params?.mondok,
+                  })
+                }
                 className="bg-[#6b7ced] w-[33.2%] py-3 items-center"
               >
                 <Text>Point Santri</Text>
               </View>
               <View
-                onTouchStart={() => navigate.navigate("Prestasi")}
+                onTouchStart={() =>
+                  navigate.navigate("Prestasi", {
+                    nuwb: route?.params?.nuwb,
+                    mondok: route?.params?.mondok,
+                  })
+                }
                 className="bg-[#6b7ced] w-[33.2%] py-3 items-center"
               >
                 <Text>Prestasi Santri</Text>
               </View>
               <View
-                onTouchStart={() => navigate.navigate("Perizinan")}
+                onTouchStart={() =>
+                  navigate.navigate("Perizinan", {
+                    nuwb: route?.params?.nuwb,
+                    mondok: route?.params?.mondok,
+                  })
+                }
                 className="bg-[#29368c] w-[33.3%] py-3 items-center"
               >
                 <Text className="text-white">Perizinan</Text>
@@ -49,9 +60,9 @@ const Perizininan = () => {
                 Catatan Perizinan
               </Text>
             </View>
-            {Object.keys(perizinanAll)?.length !== 0 ? (
+            {historyPerizinan && Object.keys(historyPerizinan)?.length !== 0 ? (
               <View className="mx-3 mt-1 mb-[18vh]">
-                {perizinanAll.map((d, id) => (
+                {historyPerizinan.map((d, id) => (
                   <View
                     key={id}
                     className="my-1 py-3 border border-slate-500 flex flex-row rounded-xl"
@@ -62,10 +73,10 @@ const Perizininan = () => {
                     />
                     <View className="w-[75vw]">
                       <Text>
-                        Dari : {moment(d.dari).format("DD-MM-YYYY hh:mm")}
+                        Dari : {d.dari ? timeAsiaMakassar(d.dari) : "-"}
                       </Text>
                       <Text>
-                        Sampai : {moment(d.sampai).format("DD-MM-YYYY hh:mm")}
+                        Sampai : {d.sampai ? timeAsiaMakassar(d.sampai) : "-"}
                       </Text>
                       <Text>Keterangan : {d.keterangan}</Text>
                       <Text>Penjemput : {d.listPenjemput?.nama}</Text>
@@ -88,4 +99,4 @@ const Perizininan = () => {
   );
 };
 
-export default Perizininan;
+export default Perizinan;
