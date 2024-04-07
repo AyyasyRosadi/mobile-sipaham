@@ -9,24 +9,6 @@ const api = axios.create({
 
 export default api
 
-// let store;
-// export const injectStore = (_store) => {
-//     store = _store
-// }
-
-// api.interceptors.request.use((req) => {
-//     if (!req.url.includes("/user/login")) {
-//         req.headers = {
-//             Authorization: `Bearer ${store.getState().auth.userAuth.token}`
-//         }
-//     }
-//     if (req.url.includes(`/user/refreshtoken`)) {
-//         req.headers = {
-//             Authorization: `Bearer ${store.getState().auth.userAuth.refrestToken}`
-//         }
-//     }
-//     return req;
-// })
 api.interceptors.response.use(
     (res) => {
         return res

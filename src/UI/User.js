@@ -10,8 +10,10 @@ import getStorage from "../helper/getStorage";
 import useRefreshToken from "../hooks/react-query/useRefreshToken";
 import useRefreshUser from "../hooks/react-query/useRefreshUser";
 import useSetHeader from "../hooks/useSetHeader";
+import { useTrigger } from "../provider/Context";
 
 const User = ({ navigation }) => {
+  const { triggerEffect } = useTrigger();
   const navigate = useNavigation();
   const route = useRoute();
   const [userAuth, setuserAuth] = useState({});
@@ -41,18 +43,22 @@ const User = ({ navigation }) => {
     return focusHandler;
   }, [route.params?.status, navigation]);
   useEffect(() => {
-    if (userAuth !== null) {
-      if (Object.keys(userAuth)?.length !== 0 && refreshToken.status === 200) {
-        setStorage("userToken", userAuth);
-      } else if (!refreshToken?.status === 200) {
-        removeStorage("userToken");
-      }
-    }
+    // if (userAuth !== null) {
+    //   if (Object.keys(userAuth)?.length !== 0 && refreshToken.status === 200) {
+    //     setStorage("userToken", userAuth);
+    //   } else if (!refreshToken?.status === 200) {
+    //     removeStorage("userToken");
+    //   }
+    // }
+    console.log(refreshToken.status);
     if (refreshToken.status === "success") {
       userAuth.token = refreshToken?.data?.data?.token;
       setStorage("userToken", userAuth);
       useSetHeader(refreshToken?.data?.data?.token);
       refreshUser.mutate();
+    } else if (refreshToken.status === "error") {
+      removeStorage("userToken");
+      triggerEffect();
     }
   }, [userAuth, refreshToken.status]);
   return (
